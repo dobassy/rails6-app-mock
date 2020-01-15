@@ -16,3 +16,11 @@ Rails 6 をベースとした、軽微な技術確認に用いるコードやメ
   - vortizhe.simple-ruby-erb
   - bung87.rails
   - ninoseki.vscode-gem-lens
+
+### Solargraph
+
+Code completion.
+
+- `gem install solargraph`
+- `code --install-extension castwide.solargraph`
+- `solargraph config`
