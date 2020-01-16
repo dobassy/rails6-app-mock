@@ -43,6 +43,22 @@ HIVEMIND_PROCFILE=Procfile.dev
 
 Exec: `hivemind`
 
+## Install nvm
+
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
+```
+
+(As of Jan, 16)
+
+[nvm-sh/nvm: Node Version Manager - POSIX-compliant bash script to manage multiple active node.js versions](https://github.com/nvm-sh/nvm#install--update-script)
+
+Fixed yarn version using `yarn policies`
+
+```
+yarn policies set-version 1.21.1
+```
+
 ## References
 
 - [【保存版】Rails 5 Webpacker 公式ドキュメントの歩き方+追加情報｜ TechRacho（テックラッチョ）〜エンジニアの「？」を「！」に〜｜ BPS 株式会社](https://techracho.bpsinc.jp/hachi8833/2018_05_17/56568)
