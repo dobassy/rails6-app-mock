@@ -4,7 +4,7 @@
 
 Rails 6 をベースとした、軽微な技術確認に用いるコードやメモの集合。
 
-## Notes
+## Editor Settings (VS Code)
 
 [Rails 6+Webpacker 開発環境を JS 強者ががっつりセットアップしてみた（翻訳）｜ TechRacho（テックラッチョ）〜エンジニアの「？」を「！」に〜｜ BPS 株式会社](https://techracho.bpsinc.jp/hachi8833/2019_11_28/83678)
 
@@ -16,6 +16,24 @@ Rails 6 をベースとした、軽微な技術確認に用いるコードやメ
   - vortizhe.simple-ruby-erb
   - bung87.rails
   - ninoseki.vscode-gem-lens
+
+### Keybindings
+
+Edit target: `keybindings.json`
+　　　　　　　　　　　　ターミナル移動をお手軽に
+
+```js
+    {
+      "key": "ctrl+;",
+      "command": "workbench.action.terminal.focus",
+      "when": "editorTextFocus"
+    },
+    {
+      "key": "ctrl+;",
+      "command": "workbench.action.focusFirstEditorGroup",
+      "when": "terminalFocus"
+    }
+```
 
 ### Solargraph
 
@@ -60,6 +78,7 @@ yarn policies set-version 1.21.1
 ```
 
 ## React
+
 定番コマンドとして `rails generate react:install` や `rails generate react:install:react` が唐突に登場してくる記事が多い。位置づけや役割を理解しないままコマンドを叩いていてもなかなか覚えられず、すぐ調べるハメになるので役割を整理する。
 
 Pattern:
@@ -71,7 +90,7 @@ Pattern:
 
 [How to use React with Ruby on Rails 6 | Learnetto](https://learnetto.com/blog/react-rails)
 
-基本的には webpacker の利用が推奨であり、その他Gemを使うべき明確な理由がある場合にはその他を検討すべきとの示唆がある。
+基本的には webpacker の利用が推奨であり、その他 Gem を使うべき明確な理由がある場合にはその他を検討すべきとの示唆がある。
 
 ### 1. webpacket
 
@@ -88,12 +107,11 @@ app/javascript:
       └── hello_react.jsx
 ```
 
-
 ### 2. react-rails
 
 > react-rails is the official React community gem for integrating React with Rails. The main benefit of using this gem is the react_component helper method which makes it easy to pass Rails data to components.
 
-オフィシャルコミュニティによるGem。react_component helper method (`react_component`) により Rails のデータ（モデル）にアクセスしやすい模様。
+オフィシャルコミュニティによる Gem。react_component helper method (`react_component`) により Rails のデータ（モデル）にアクセスしやすい模様。
 
 ```
 gem 'react-rails'
@@ -126,17 +144,30 @@ The other most popular third-party gem for integrating React into Rails is the r
 コードは以下のようになる。
 
 ```jsx
-import ReactOnRails from 'react-on-rails';
+import ReactOnRails from "react-on-rails";
 
-import HelloWorld from '../bundles/HelloWorld/components/HelloWorld';
+import HelloWorld from "../bundles/HelloWorld/components/HelloWorld";
 
 // This is how react_on_rails can see the HelloWorld in the browser.
 ReactOnRails.register({
-  HelloWorld,
+  HelloWorld
 });
 ```
 
-Asset Pipeline を利用するのではなく、Webpack がコンパイルしたJSファイルのみを利用するとのこと(++)
+Asset Pipeline を利用するのではなく、Webpack がコンパイルした JS ファイルのみを利用するとのこと(++)
+
+## Create API service
+
+- Rails を API として使う（但し、セッション機能を使うため `--api` モードではない）
+- React Frontend を使う
+
+refs. [React with Rails User Authentication - How I Get It… - Medium](https://medium.com/how-i-get-it/react-with-rails-user-authentication-8977e98762f2)
+
+Tutorial では API と Frontend を異なる Project で構成しているが、ここでは同一の Rails project で Front / beackend を構成。期待通り動作。
+
+冗長なコーディングを回避するための手法がある：
+
+> These two components are almost identical. To keep the code ‘DRY’, we could use a Higher Order Component, or use Styled Components to pass repeating elements, but this is beyond the scope of this article and as such, we’ll just use two separate components.
 
 ## References
 
