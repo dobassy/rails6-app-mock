@@ -12,6 +12,10 @@ class Login extends Component {
     };
   }
 
+  componentWillMount() {
+    return this.props.loggedInStatus ? this.redirect() : null;
+  }
+
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -21,10 +25,48 @@ class Login extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    const { username, email, password } = this.state;
+
+    let user = {
+      username: username,
+      email: email,
+      password: password
+    };
+
+    axios
+      .post("http://localhost:5000/login", { user }, { withCredentials: true })
+      .then(response => {
+        if (response.data.logged_in) {
+          this.props.handleLogin(response.data);
+          this.redirect();
+        } else {
+          this.setState({
+            errors: response.data.errors
+          });
+        }
+      })
+      .catch(error => console.log("api errors:", error));
+  };
+
+  redirect = () => {
+    this.props.history.push("/page/");
+  };
+
+  handleErrors = () => {
+    return (
+      <div>
+        <ul>
+          {this.state.errors.map(error => {
+            return <li key={error}>{error}</li>;
+          })}
+        </ul>
+      </div>
+    );
   };
 
   render() {
     const { username, email, password } = this.state;
+
     return (
       <div>
         <h1>Log In</h1>
@@ -57,6 +99,7 @@ class Login extends Component {
             or <Link to="/page/signup">sign up</Link>
           </div>
         </form>
+        <div>{this.state.errors ? this.handleErrors() : null}</div>
       </div>
     );
   }
